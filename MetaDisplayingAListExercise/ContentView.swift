@@ -19,6 +19,16 @@ struct ContentView: View {
     }
 }
 
+struct Item: Identifiable {
+    let name: String
+    var id = UUID()
+    
+}
+
+class Model: ObservableObject {
+    
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
