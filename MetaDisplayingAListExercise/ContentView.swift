@@ -8,25 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject private var model = Model()
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            List {
+                ForEach(model.meals) { item in
+                    Text(item.name)
+                }
+            }
+            .listStyle(PlainListStyle())
         }
-        .padding()
     }
 }
 
 struct Item: Identifiable {
+    let id = UUID()
     let name: String
-    var id = UUID()
-    
 }
 
 class Model: ObservableObject {
+    @Published var meals: [Item] = menuItems()
     
+    static func menuItems() -> [Item] {
+       return [
+        Item(name: "Lasagna"),
+        Item(name: "Fettuccini Alfredo"),
+        Item(name: "Spaghetti"),
+        Item(name: "Avocado Toast"),
+        Item(name: "Tortellini"),
+        Item(name: "Pizza")
+       ]
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
